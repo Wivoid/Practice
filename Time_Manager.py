@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QPushButton,
-                        QLabel, QTextEdit, QHBoxLayout, QVBoxLayout)
+                        QLabel, QTextEdit, QHBoxLayout, QVBoxLayout, QGridLayout)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -14,15 +14,22 @@ class MainWindow(QMainWindow):
         self.central_widg = QWidget()
         self.setCentralWidget(self.central_widg)
 
-        self.hbox = QHBoxLayout()
-        self.vbox = QVBoxLayout()
+        self.grid = QGridLayout(self.central_widg)
+        self.grid.setColumnStretch(0,1)
+        self.grid.setColumnStretch(3,1)
 
-        self.central_widg.setLayout(self.hbox)
+        self.hello_button = QPushButton("Hello", self)
+        self.info_button = QPushButton("Info", self)
 
-        self.hello_button = QPushButton("hello", self)
+        self.central_widg.setStyleSheet("""
+            QPushButton {
+                    font-size: 40px;
+                }
+                                        
+        """)
 
-        self.vbox.addWidget(self.hello_button)
-        self.hbox.addLayout(self.vbox)
+        self.grid.addWidget(self.info_button, 1,1,1,1, Qt.AlignCenter)
+        self.grid.addWidget(self.hello_button, 1,2,1,1, Qt.AlignCenter)
 
 
 if __name__ == "__main__":
