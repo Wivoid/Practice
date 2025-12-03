@@ -25,9 +25,11 @@ class MainWindow(QMainWindow):
         self.vbox.addStretch(1)
 
 
+        self.hello_text = QLabel("Hello", self)
         self.hello_button = QPushButton("Hello", self)
         self.info_button = QPushButton("Info", self)
 
+        self.hbox.addWidget(self.hello_text)
         self.hbox.addWidget(self.info_button)
         self.hbox.addWidget(self.hello_button)
 
