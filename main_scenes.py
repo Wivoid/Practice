@@ -1,28 +1,19 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication, QStackedWidget,
-                        QLabel, QTextEdit, QHBoxLayout, QVBoxLayout, QMainWindow)
+from PyQt5.QtWidgets import (QWidget, QPushButton, QStackedWidget,
+                        QLabel, QTextEdit, QHBoxLayout, QVBoxLayout)
 
-class Scene1(QMainWindow):
+class Scene1(QWidget):
     def __init__(self):
         super().__init__()
-        self.setGeometry(800,500,800,500)
         self.initUI()
 
     def initUI(self):
-        self.stack = QStackedWidget()
-        self.setCentralWidget(self.stack)
 
         self.hbox = QHBoxLayout()
         self.vbox = QVBoxLayout()
 
-        self.vbox.addStretch(3)
-
-        self.vbox.addLayout(self.hbox)
-        self.stack.setLayout(self.vbox)
-
-        self.vbox.addStretch(1)
-
+        self.setLayout(self.vbox)
 
         self.hello_text = QLabel("Hello", self)
         self.hello_button = QPushButton("Hello", self)
@@ -32,11 +23,13 @@ class Scene1(QMainWindow):
         self.hbox.addWidget(self.info_button)
         self.hbox.addWidget(self.hello_button)
 
+        self.vbox.addStretch(3)
+        self.vbox.addLayout(self.hbox)
+        self.vbox.addStretch(1)
 
 
-        self.stack.setStyleSheet("""
+        self.setStyleSheet("""
             QPushButton {
                     font-size: 40px;
-                }
-                                        
+                        }
         """)
