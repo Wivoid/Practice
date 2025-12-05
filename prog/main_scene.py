@@ -15,15 +15,21 @@ class Scene1(QWidget):
 
         self.setLayout(self.vbox)
 
+        self.vbox.addStretch(4)
+
         self.hello_text = QLabel("Hello", self)
-        self.hello_button = QPushButton("Hello", self)
+        self.hello_button = QPushButton("Focus", self)
         self.info_button = QPushButton("Info", self)
 
-        self.hbox.addWidget(self.hello_text)
         self.hbox.addWidget(self.info_button)
         self.hbox.addWidget(self.hello_button)
 
-        self.vbox.addStretch(3)
+        self.vbox.addWidget(self.hello_text)
+        self.hello_text.setAlignment(Qt.AlignCenter)
+
+        self.vbox.addStretch(2)
+
+        
         self.vbox.addLayout(self.hbox)
         self.vbox.addStretch(1)
 
@@ -32,4 +38,7 @@ class Scene1(QWidget):
             QPushButton {
                     font-size: 40px;
                         }
+            QLabel {
+                    font-size: 50px;       
+                    }
         """)
