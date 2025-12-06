@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QWidget, QPushButton, QStackedWidget,
-                        QLabel, QTextEdit, QHBoxLayout, QVBoxLayout)
+from PyQt5.QtWidgets import (QWidget, QPushButton,QLabel,QHBoxLayout, QVBoxLayout)
 
 class Scene1(QWidget):
     def __init__(self):
@@ -18,11 +17,11 @@ class Scene1(QWidget):
         self.vbox.addStretch(4)
 
         self.hello_text = QLabel("Hello", self)
-        self.hello_button = QPushButton("Focus", self)
+        self.start_button = QPushButton("Start", self)
         self.info_button = QPushButton("Info", self)
 
         self.hbox.addWidget(self.info_button)
-        self.hbox.addWidget(self.hello_button)
+        self.hbox.addWidget(self.start_button)
 
         self.vbox.addWidget(self.hello_text)
         self.hello_text.setAlignment(Qt.AlignCenter)

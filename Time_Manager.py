@@ -22,10 +22,12 @@ class MainWindow(QMainWindow):
 
         self.stack.addWidget(self.main_scene)
         self.stack.addWidget(self.focus_scene)
+
+        
         self.stack.setCurrentIndex(0)
 
         self.focus_scene.return_button.clicked.connect(self.Return)
-        self.focus_scene.focus_button.clicked.connect(self.Focus)
+        self.main_scene.start_button.clicked.connect(self.Focus)
 
     def Return(self):
         self.stack.setCurrentIndex(0)

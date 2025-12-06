@@ -10,17 +10,24 @@ class Scene2(QWidget):
         self.Time_Box()
 
     def Time_Box(self):
-        self.time_box = QWidget()
+        self.focus_box = QWidget()
+        self.recent_box = QWidget()
+        self.statistics_box = QWidget()
+
         self.time_text = QLabel("00:00", self)
         self.time_text.setAlignment(Qt.AlignCenter)
 
-        self.time_layout = QHBoxLayout(self.time_box)
-        self.time_layout.addWidget(self.time_text)
 
-        self.time_box.setObjectName("TimerFrame")
+        self.time_layout = QHBoxLayout(self.focus_box)
+        self.time_layout.addWidget(self.time_text)
+        self.time_layout.addWidget(self.recent_box)
+
+        self.focus_box.setObjectName("TimerFrame")
+        self.recent_box.setObjectName("RecentFrame")
         self.time_text.setStyleSheet("font: 30px;")
 
-        self.vbox.insertWidget(0, self.time_box)
+        self.vbox.insertWidget(0, self.focus_box)
+        self.vbox.insertWidget(0, self.recent_box)
 
     def initUI(self):
 
@@ -30,11 +37,13 @@ class Scene2(QWidget):
         self.setLayout(self.vbox)
 
         self.focus_button = QPushButton("Focus", self)
+        self.add_button = QPushButton("Add Subject", self)
         self.return_button = QPushButton("Return", self)
 
         self.vbox.addStretch(1)
 
         self.hbox.addWidget(self.return_button)
+        self.hbox.addWidget(self.add_button)
         self.hbox.addWidget(self.focus_button)
 
         self.vbox.addLayout(self.hbox)
@@ -48,4 +57,14 @@ class Scene2(QWidget):
                 border: 2px solid red;
                 border-radius: 3px;
                     }
+            #RecentFrame {
+                border: 2px solid yellow;
+                border-radius: 3px;
+                        }
         """)
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Scene2()
+    window.show()
+    sys.exit(app.exec_()) 
