@@ -12,22 +12,43 @@ class Scene2(QWidget):
     def Time_Box(self):
         self.focus_box = QWidget()
         self.recent_box = QWidget()
-        self.statistics_box = QWidget()
+        self.statics_box = QWidget()
+
+        self.middle_layout = QHBoxLayout()
+
 
         self.time_text = QLabel("00:00", self)
         self.time_text.setAlignment(Qt.AlignCenter)
 
-
-        self.time_layout = QHBoxLayout(self.focus_box)
+        self.time_layout = QVBoxLayout(self.focus_box)
         self.time_layout.addWidget(self.time_text)
-        self.time_layout.addWidget(self.recent_box)
+        
+
+        self.recent_text = QLabel("Recent Activity", self)
+        self.recent_text.setAlignment(Qt.AlignCenter)
+
+        self.recent_layout = QVBoxLayout(self.recent_box)
+        self.recent_layout.addLayout(self.middle_layout)
+        self.recent_layout.addWidget(self.recent_text)
+
+        self.statics_text = QLabel("Statistics", self)
+        self.recent_text.setAlignment(Qt.AlignCenter)
+
+        self.statics_layout = QVBoxLayout(self.statics_box)
+        self.statics_layout.addLayout(self.middle_layout)
+        self.statics_layout.addWidget(self.statics_text)
+
 
         self.focus_box.setObjectName("TimerFrame")
         self.recent_box.setObjectName("RecentFrame")
+        self.statics_box.setObjectName("StaticsFrame")
+
+
         self.time_text.setStyleSheet("font: 30px;")
 
         self.vbox.insertWidget(0, self.focus_box)
-        self.vbox.insertWidget(0, self.recent_box)
+        self.vbox.insertWidget(1, self.recent_box)
+        self.vbox.insertWidget(2, self.statics_box)
 
     def initUI(self):
 
@@ -59,6 +80,10 @@ class Scene2(QWidget):
                     }
             #RecentFrame {
                 border: 2px solid yellow;
+                border-radius: 3px;
+                        }
+            #StaticsFrame {
+                border: 2px solid green;
                 border-radius: 3px;
                         }
         """)
