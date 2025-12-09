@@ -11,7 +11,7 @@ class Scene2(QWidget):
 
         self.Time_Box()
         self.Recent_Box()
-        self.Statics_Box()
+        self.Stats_Box()
         
         self.vbox.insertLayout(1, self.middle_layout)
 
@@ -35,34 +35,43 @@ class Scene2(QWidget):
 
     def Recent_Box(self):
         self.recent_box = QWidget()
+        self.recent_info = QWidget()
+
 
         self.recent_text = QLabel("Recent Activity", self)
-        self.recent_text.setAlignment(Qt.AlignCenter)
+        self.recent_text.setAlignment(Qt.AlignHCenter)
 
         self.recent_layout = QVBoxLayout(self.recent_box)
-        self.recent_layout.addWidget(self.recent_text)
+        self.recent_layout.addWidget(self.recent_text, stretch=0)
+        self.recent_layout.addWidget(self.recent_info, stretch=1)
 
 
         self.recent_text.setStyleSheet("font: 30px;")
         self.recent_box.setObjectName("RecentFrame")
+        self.recent_info.setStyleSheet("border: 2px solid purple;"
+                                       "border-radius: 3px;")
 
         self.middle_layout.addWidget(self.recent_box)
 
-    def Statics_Box(self):
-        self.statics_box = QWidget()
+    def Stats_Box(self):
+        self.stats_box = QWidget()
+        self.stats_info = QWidget()
 
-        self.statics_text = QLabel("Statistics", self)
-        self.statics_text.setAlignment(Qt.AlignCenter)
+        self.stats_text = QLabel("Statistics", self)
+        self.stats_text.setAlignment(Qt.AlignCenter)
 
-        self.statics_layout = QVBoxLayout(self.statics_box)
-        self.middle_layout.addLayout(self.statics_layout)
-        self.statics_layout.addWidget(self.statics_text)
+        self.stats_layout = QVBoxLayout(self.stats_box)
+        self.middle_layout.addLayout(self.stats_layout)
+        self.stats_layout.addWidget(self.stats_text, stretch=0)
+        self.stats_layout.addWidget(self.stats_info, stretch=1)
 
+        
+        self.stats_text.setStyleSheet("font: 30px;")
+        self.stats_box.setObjectName("StatsFrame")
+        self.stats_info.setStyleSheet("border: 2px solid brown;"
+                                       "border-radius: 3px;")
 
-        self.statics_text.setStyleSheet("font: 30px;")
-        self.statics_box.setObjectName("StaticsFrame")
-
-        self.middle_layout.addWidget(self.statics_box)
+        self.middle_layout.addWidget(self.stats_box)
 
 
     def initUI(self):
@@ -96,7 +105,7 @@ class Scene2(QWidget):
                 border: 2px solid yellow;
                 border-radius: 3px;
                         }
-            #StaticsFrame {
+            #StatsFrame {
                 border: 2px solid green;
                 border-radius: 3px;
                         }
