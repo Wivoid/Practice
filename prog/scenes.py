@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication,
                              QLabel, QTextEdit, QHBoxLayout, QVBoxLayout, QSizePolicy)
+from add_subject import Add_Button
 
 class Scene2(QWidget):
     def __init__(self):
