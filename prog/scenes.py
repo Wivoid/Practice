@@ -8,6 +8,7 @@ class Scene2(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+
         self.middle_layout = QHBoxLayout()
 
         self.Time_Box()
