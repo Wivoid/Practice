@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication,
                              QLabel, QTextEdit, QHBoxLayout, QVBoxLayout, QSizePolicy)
-from add_subject import Add_Button
+from .menu_buttons import Add_Button
 
 class Scene2(QWidget):
     def __init__(self):
@@ -84,7 +84,7 @@ class Scene2(QWidget):
         self.setLayout(self.vbox)
 
         self.focus_button = QPushButton("Focus", self)
-        self.add_button = QPushButton("Add Subject", self)
+        self.add_button = Add_Button()
         self.return_button = QPushButton("Return", self)
 
 
