@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QWidget, QPushButton,QLabel ,QHBoxLayout
-                             ,QApplication , QVBoxLayout, QMenu, QSizePolicy)
+                             ,QApplication , QVBoxLayout, QMenu, QSizePolicy, QMessageBox)
+from .add_window import AddWindow
 
 class Add_Button(QPushButton):
     def __init__(self):
@@ -15,11 +16,13 @@ class Add_Button(QPushButton):
         self.add_subject()
 
     def add_subject(self):
-        menu_create = self.menu.addAction("Create")
-        example_1 = self.menu.addAction("Example 1")
-        example_2 = self.menu.addAction("Example 2")
+        self.menu_create = self.menu.addAction("Create")
+        self.menu_create.triggered.connect(self.add_funct)
         self.setMenu(self.menu)
 
     def update_button(self):
         self.menu.setMinimumWidth(self.width())
         
+    def add_funct(self):
+        self.new_window = AddWindow()
+        self.new_window.show()
