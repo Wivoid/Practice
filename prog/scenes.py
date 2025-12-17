@@ -1,13 +1,14 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication,
-                             QLabel, QTextEdit, QHBoxLayout, QVBoxLayout, QSizePolicy)
-from add_subject import Add_Button
+from PyQt5.QtWidgets import (QWidget, QPushButton,
+                             QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy)
+from .files.menu_buttons import Add_Button
 
 class Scene2(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+
         self.middle_layout = QHBoxLayout()
 
         self.Time_Box()
@@ -83,7 +84,7 @@ class Scene2(QWidget):
         self.setLayout(self.vbox)
 
         self.focus_button = QPushButton("Focus", self)
-        self.add_button = QPushButton("Add Subject", self)
+        self.add_button = Add_Button()
         self.return_button = QPushButton("Return", self)
 
 
@@ -111,9 +112,3 @@ class Scene2(QWidget):
                 border-radius: 3px;
                         }
         """)
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Scene2()
-    window.show()
-    sys.exit(app.exec_()) 
