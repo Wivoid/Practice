@@ -7,7 +7,11 @@ from .add_window import AddWindow
 class Add_Button(QPushButton):
     def __init__(self):
         super().__init__()
+<<<<<<< HEAD
         self.setText("Subject")
+=======
+        self.setText("Add Subject")
+>>>>>>> afe7fd335ddad42c600db3f8c58ce4453fb0833b
 
         self.menu = QMenu()
         self.menu.setStyleSheet("font-size: 20px;")
@@ -25,9 +29,13 @@ class Add_Button(QPushButton):
         
     def add_funct(self):
         self.new_window = AddWindow()
+<<<<<<< HEAD
         self.new_window.show()
 
         self.new_window.subj_send.connect(self.create_subj)
 
     def create_subj(self, name):
         subj = self.menu.addAction(name)
+=======
+        self.new_window.show()
+>>>>>>> afe7fd335ddad42c600db3f8c58ce4453fb0833b
