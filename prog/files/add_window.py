@@ -10,7 +10,7 @@ class AddWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Subject Adding")
-        self.setMinimumSize(300,150)
+        self.setMinimumSize(350,150)
         self.initUI()
     
     def initUI(self):

@@ -112,3 +112,43 @@ class Scene2(QWidget):
                 border-radius: 3px;
                         }
         """)
+
+
+
+
+
+class Scene3(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Time Manager - Focus")
+        self.initUI()
+
+    def initUI(self):
+        self.main_layout = QVBoxLayout()
+        self.line_box = QWidget()
+        line_vbox = QVBoxLayout(self.line_box)
+
+
+        self.setLayout(self.main_layout)
+        self.main_layout.addLayout(line_vbox)
+        self.main_layout.addWidget(self.line_box)
+        
+
+        self.time = QLabel("00:00", self.line_box)
+        line_vbox.addWidget(self.time)
+        self.time.setAlignment(Qt.AlignCenter)
+        
+        self.main_layout.addStretch(1)
+
+        self.line_box.setObjectName("Frame")
+        self.line_box.setFixedHeight(50)
+
+        self.setStyleSheet("""
+                #Frame {
+                    border: 2px solid red;
+                }
+                           
+                QLabel {
+                    font: 30px;
+                }
+        """)
