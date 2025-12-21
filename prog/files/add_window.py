@@ -44,11 +44,15 @@ class AddWindow(QWidget):
         """)
 
         Submit.clicked.connect(self.btn_submit)
+        Return.clicked.connect(self.btn_return)
         
     def btn_submit(self):
         subj_name = self.Input.text()
         self.subj_send.emit(subj_name)
         time.sleep(0.3)
+        self.close()
+
+    def btn_return(self):
         self.close()
 
 if __name__ == "__main__":

@@ -15,6 +15,8 @@ class Scene2(QWidget):
         self.Recent_Box()
         self.Stats_Box()
         
+        self.time()
+        
         self.vbox.insertLayout(1, self.middle_layout)
 
     def Time_Box(self):
@@ -75,7 +77,6 @@ class Scene2(QWidget):
 
         self.middle_layout.addWidget(self.stats_box)
 
-
     def initUI(self):
 
         self.hbox = QHBoxLayout()
@@ -113,32 +114,59 @@ class Scene2(QWidget):
                         }
         """)
 
+    def time(self):
+        self.Time_set = QTime()
+        self.Timer_upd = QTimer()
+
+        self.update_time()
+        self.Timer_upd.start(1)
+        self.Timer_upd.timeout.connect(self.update_time)
+        
+    def update_time(self):
+        current_time = self.Time_set.currentTime().toString("hh:mm:ss")
+        self.time_text.setText(current_time)
 
 
 
+from PyQt5.QtCore import QTime, QTimer
 
 class Scene3(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Time Manager - Focus")
         self.initUI()
+        self.time()
 
     def initUI(self):
-        self.main_layout = QVBoxLayout()
         self.line_box = QWidget()
-        line_vbox = QVBoxLayout(self.line_box)
+        self.line_vbox = QVBoxLayout(self.line_box)
+
+        self.vmain_layout = QVBoxLayout()
+        self.hlayout = QHBoxLayout()
+        stop_btn = QPushButton("Stop")
+        pause_btn = QPushButton("Pause")
 
 
-        self.setLayout(self.main_layout)
-        self.main_layout.addLayout(line_vbox)
-        self.main_layout.addWidget(self.line_box)
-        
+        self.setLayout(self.vmain_layout)
+        self.hlayout.setContentsMargins(30,0,30,0)
 
-        self.time = QLabel("00:00", self.line_box)
-        line_vbox.addWidget(self.time)
-        self.time.setAlignment(Qt.AlignCenter)
-        
-        self.main_layout.addStretch(1)
+        self.vmain_layout.addLayout(self.line_vbox)
+        self.vmain_layout.addWidget(self.line_box)
+
+
+        self.vmain_layout.addStretch(3)
+
+        self.vmain_layout.addLayout(self.hlayout)
+
+        self.vmain_layout.addStretch(1)
+
+
+        stop_btn.setMinimumHeight(120)
+        self.hlayout.addWidget(stop_btn)
+
+        pause_btn.setMinimumHeight(120)
+        self.hlayout.addWidget(pause_btn)
+
 
         self.line_box.setObjectName("Frame")
         self.line_box.setFixedHeight(50)
@@ -151,4 +179,27 @@ class Scene3(QWidget):
                 QLabel {
                     font: 30px;
                 }
+                           
+                QPushButton {
+                    font-size: 35px;
+                    margin: 30px;
+                }
         """)
+
+    def time(self):
+        self.Time_set = QTime()
+        self.Timer_upd = QTimer()
+
+        self.Time = QLabel("00:00", self.line_box)
+        self.Time.setAlignment(Qt.AlignCenter)
+
+
+        self.line_vbox.addWidget(self.Time)
+
+        self.update_time()
+        self.Timer_upd.start(1)
+        self.Timer_upd.timeout.connect(self.update_time)
+        
+    def update_time(self):
+        current_time = self.Time_set.currentTime().toString("hh:mm:ss")
+        self.Time.setText(current_time)
