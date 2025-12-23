@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import (QWidget, QPushButton,QLabel ,QHBoxLayout
                              ,QApplication , QVBoxLayout,
                                QMenu, QSizePolicy, QMessageBox)
 from .add_window import AddWindow
+from .subj_value import Val
 
 class Add_Button(QPushButton):
     def __init__(self):
@@ -31,10 +32,11 @@ class Add_Button(QPushButton):
         self.new_window.subj_send.connect(self.create_subj)
 
     def create_subj(self, name):
-        self.Name = name
         self.subj = self.menu.addAction(name)
 
-        self.subj.triggered.connect(self.subject_funct)
+        self.subj.triggered.connect(lambda: self.subject_funct(name))
 
-    def subject_funct(self):
-        self.setText(self.Name)
+    def subject_funct(self, name):
+        self.setText(name)
+        Val.value.emit(name)
+        

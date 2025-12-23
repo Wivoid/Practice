@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QPushButton,
                              QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy)
 from .files.menu_buttons import Add_Button
@@ -115,7 +115,7 @@ class Scene2(QWidget):
         """)
 
     def time(self):
-        self.Time_set = QTime()
+        self.Time_set = QDateTime()
         self.Timer_upd = QTimer()
 
         self.update_time()
@@ -123,12 +123,13 @@ class Scene2(QWidget):
         self.Timer_upd.timeout.connect(self.update_time)
         
     def update_time(self):
-        current_time = self.Time_set.currentTime().toString("hh:mm:ss")
-        self.time_text.setText(current_time)
+        current_date = self.Time_set.currentDateTime().toString("dd.MM   HH:mm")
+
+        self.time_text.setText(current_date)
 
 
-
-from PyQt5.QtCore import QTime, QTimer
+from .files.subj_value import Val
+from PyQt5.QtCore import QTimer, QDateTime
 
 class Scene3(QWidget):
     def __init__(self):
@@ -143,8 +144,11 @@ class Scene3(QWidget):
 
         self.vmain_layout = QVBoxLayout()
         self.hlayout = QHBoxLayout()
+
         stop_btn = QPushButton("Stop")
         pause_btn = QPushButton("Pause")
+
+        subj_name = QLabel()
 
 
         self.setLayout(self.vmain_layout)
@@ -156,6 +160,7 @@ class Scene3(QWidget):
 
         self.vmain_layout.addStretch(3)
 
+        self.vmain_layout.addWidget(subj_name)
         self.vmain_layout.addLayout(self.hlayout)
 
         self.vmain_layout.addStretch(1)
@@ -187,7 +192,7 @@ class Scene3(QWidget):
         """)
 
     def time(self):
-        self.Time_set = QTime()
+        self.Time_set = QDateTime()
         self.Timer_upd = QTimer()
 
         self.Time = QLabel("00:00", self.line_box)
@@ -201,5 +206,5 @@ class Scene3(QWidget):
         self.Timer_upd.timeout.connect(self.update_time)
         
     def update_time(self):
-        current_time = self.Time_set.currentTime().toString("hh:mm:ss")
-        self.Time.setText(current_time)
+        current_date = self.Time_set.currentDateTime().toString("dd.MM   HH:mm")
+        self.Time.setText(current_date)
