@@ -148,7 +148,11 @@ class Scene3(QWidget):
         stop_btn = QPushButton("Stop")
         pause_btn = QPushButton("Pause")
 
-        subj_name = QLabel()
+        self.subj_name = QLabel("dej123")
+        subj_timer = QLabel("00:00")
+
+        
+        Val.value.connect(self.timer_name)
 
 
         self.setLayout(self.vmain_layout)
@@ -158,12 +162,23 @@ class Scene3(QWidget):
         self.vmain_layout.addWidget(self.line_box)
 
 
-        self.vmain_layout.addStretch(3)
+        self.vmain_layout.addStretch(1)
 
-        self.vmain_layout.addWidget(subj_name)
+
+        self.vmain_layout.addWidget(subj_timer)
+        subj_timer.setAlignment(Qt.AlignCenter)
+
+
+        self.vmain_layout.addStretch(4)
+
+        self.vmain_layout.addWidget(self.subj_name)
+        self.subj_name.setAlignment(Qt.AlignCenter)
+
+        self.vmain_layout.addStretch(2)
+
         self.vmain_layout.addLayout(self.hlayout)
 
-        self.vmain_layout.addStretch(1)
+        self.vmain_layout.addStretch(2)
 
 
         stop_btn.setMinimumHeight(120)
@@ -173,6 +188,7 @@ class Scene3(QWidget):
         self.hlayout.addWidget(pause_btn)
 
 
+        subj_timer.setObjectName("Subj_Time")
         self.line_box.setObjectName("Frame")
         self.line_box.setFixedHeight(50)
 
@@ -189,7 +205,14 @@ class Scene3(QWidget):
                     font-size: 35px;
                     margin: 30px;
                 }
+                           
+                #Subj_Time {
+                    font-size: 70px;
+                }
         """)
+
+    def timer_name(self, name):
+        self.subj_name.setText(name)
 
     def time(self):
         self.Time_set = QDateTime()

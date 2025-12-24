@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QPushButton,
 from prog.main_scene import Scene1
 from prog.scenes import Scene2
 from prog.scenes import Scene3
+from prog.files.subj_value import Val
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -40,8 +41,13 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentIndex(1)
 
     def Time(self):
-        self.stack.setCurrentIndex(2)
-
+        Val.value.connect(self.subj_check)
+        
+    def subj_check(self, name):
+        if name == '':
+            pass
+        else:
+            self.stack.setCurrentIndex(2)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
