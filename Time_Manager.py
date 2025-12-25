@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QPushButton,
-                        QLabel, QTextEdit, QHBoxLayout, QVBoxLayout, QStackedWidget)
+from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox, QStackedWidget)
 from prog.main_scene import Scene1
 from prog.scenes import Scene2
 from prog.scenes import Scene3
@@ -14,6 +13,8 @@ class MainWindow(QMainWindow):
         self.setGeometry(800,500,800,500)
         self.setMinimumSize(500,300)
         self.initUI()
+
+        self.current_subj = ""
 
     def initUI(self):
         self.stack = QStackedWidget()
@@ -34,6 +35,8 @@ class MainWindow(QMainWindow):
         self.main_scene.start_button.clicked.connect(self.Focus)
         self.focus_scene.focus_button.clicked.connect(self.Time)
 
+        Val.value.connect(self.save_subj)
+
     def Return(self):
         self.stack.setCurrentIndex(0)
 
@@ -41,13 +44,13 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentIndex(1)
 
     def Time(self):
-        Val.value.connect(self.subj_check)
-        
-    def subj_check(self, name):
-        if name == '':
-            pass
+        if self.current_subj == '':
+            QMessageBox.warning(self, 'Warning!', 'Please select subject')
         else:
             self.stack.setCurrentIndex(2)
+        
+    def save_subj(self, name):
+        self.current_subj = name
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
