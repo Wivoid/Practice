@@ -65,7 +65,6 @@ class Scene2(QWidget):
         self.stats_text.setAlignment(Qt.AlignCenter)
 
         self.stats_layout = QVBoxLayout(self.stats_box)
-        self.middle_layout.addLayout(self.stats_layout)
         self.stats_layout.addWidget(self.stats_text, stretch=0)
         self.stats_layout.addWidget(self.stats_info, stretch=1)
 
@@ -87,6 +86,7 @@ class Scene2(QWidget):
         self.focus_button = QPushButton("Focus", self)
         self.add_button = Add_Button()
         self.return_button = QPushButton("Return", self)
+        slef.
 
 
         self.hbox.addWidget(self.return_button)
@@ -118,15 +118,19 @@ class Scene2(QWidget):
         self.Time_set = QDateTime()
         self.Timer_upd = QTimer()
 
-        self.update_time()
-        self.Timer_upd.start(1)
+        self.visible = True
+
+        self.Timer_upd.start(1000)
         self.Timer_upd.timeout.connect(self.update_time)
         
     def update_time(self):
-        current_date = self.Time_set.currentDateTime().toString("dd.MM   HH:mm")
-
+        if self.visible:
+            current_date = QDateTime.currentDateTime().toString("dd.MM   HH:mm")
+        else:
+            current_date = QDateTime.currentDateTime().toString("dd.MM   HH mm")
+            
         self.time_text.setText(current_date)
-
+        self.visible = not self.visible
 
 from .files.subj_value import Val
 from PyQt5.QtCore import QTimer, QDateTime
@@ -137,6 +141,7 @@ class Scene3(QWidget):
         self.setWindowTitle("Time Manager - Focus")
         self.initUI()
         self.time()
+        
 
     def initUI(self):
         self.line_box = QWidget()
@@ -158,18 +163,15 @@ class Scene3(QWidget):
         self.setLayout(self.vmain_layout)
         self.hlayout.setContentsMargins(30,0,30,0)
 
-        self.vmain_layout.addLayout(self.line_vbox)
         self.vmain_layout.addWidget(self.line_box)
-
-
         self.vmain_layout.addStretch(1)
-
 
         self.vmain_layout.addWidget(subj_timer)
         subj_timer.setAlignment(Qt.AlignCenter)
 
 
         self.vmain_layout.addStretch(4)
+
 
         self.vmain_layout.addWidget(self.subj_name)
         self.subj_name.setAlignment(Qt.AlignCenter)
@@ -223,11 +225,22 @@ class Scene3(QWidget):
 
 
         self.line_vbox.addWidget(self.Time)
-
-        self.update_time()
-        self.Timer_upd.start(1)
+        self.Timer_upd.start(1000)
         self.Timer_upd.timeout.connect(self.update_time)
         
     def update_time(self):
-        current_date = self.Time_set.currentDateTime().toString("dd.MM   HH:mm")
+        self.change = QTimer(self)
+
+        self.change.start(1000)
+        self.change.timeout.connect(self.double_dot)
+
+        self.visible = True
+
+    def double_dot(self):
+        if self.visible:
+            current_date = QDateTime.currentDateTime().toString("dd.MM   HH:mm")
+        else:
+            current_date = QDateTime.currentDateTime().toString("dd.MM   HH mm")
+            
         self.Time.setText(current_date)
+        self.visible = not self.visible
