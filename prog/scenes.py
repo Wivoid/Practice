@@ -1,8 +1,9 @@
 import sys
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QPushButton,
-                             QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy)
+                             QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy, QDoubleSpinBox)
 from .files.menu_buttons import Add_Button
+from .files.time_spin import Hours, Minutes
 
 class Scene2(QWidget):
     def __init__(self):
@@ -83,15 +84,23 @@ class Scene2(QWidget):
 
         self.setLayout(self.vbox)
 
-        self.focus_button = QPushButton("Focus", self)
-        self.add_button = Add_Button()
         self.return_button = QPushButton("Return", self)
-        slef.
+        self.add_button = Add_Button()
+        self.h_time = Hours()
+        self.min_time = Minutes()
+        self.focus_button = QPushButton("Focus", self)
 
 
-        self.hbox.addWidget(self.return_button)
-        self.hbox.addWidget(self.add_button)
-        self.hbox.addWidget(self.focus_button)
+        self.hbox.addWidget(self.return_button, stretch=3)
+        self.hbox.addWidget(self.add_button, stretch=3)
+
+        self.hbox.addSpacing(15)
+        self.hbox.addWidget(self.h_time, stretch=1)
+        self.hbox.addSpacing(5)
+        self.hbox.addWidget(self.min_time, stretch=1)
+        self.hbox.addSpacing(15)
+
+        self.hbox.addWidget(self.focus_button, stretch=3)
 
         self.vbox.addLayout(self.hbox)
 
