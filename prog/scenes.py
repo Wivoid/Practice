@@ -129,7 +129,7 @@ class Scene2(QWidget):
 
         self.visible = True
 
-        self.Timer_upd.start(1000)
+        self.Timer_upd.start(800)
         self.Timer_upd.timeout.connect(self.update_time)
         
     def update_time(self):
@@ -162,8 +162,12 @@ class Scene3(QWidget):
         stop_btn = QPushButton("Stop")
         pause_btn = QPushButton("Pause")
 
-        self.subj_name = QLabel("dej123")
-        subj_timer = QLabel("00:00")
+        self.date_time = QLabel("12:00")
+        self.subj_name = QLabel("subject")
+        self.subj_timer = QLabel("00:00")
+
+        self.line_vbox.addWidget(self.date_time)
+        self.date_time.setAlignment(Qt.AlignCenter)
 
         
         Val.value.connect(self.timer_name)
@@ -175,8 +179,8 @@ class Scene3(QWidget):
         self.vmain_layout.addWidget(self.line_box)
         self.vmain_layout.addStretch(1)
 
-        self.vmain_layout.addWidget(subj_timer)
-        subj_timer.setAlignment(Qt.AlignCenter)
+        self.vmain_layout.addWidget(self.subj_timer)
+        self.subj_timer.setAlignment(Qt.AlignCenter)
 
 
         self.vmain_layout.addStretch(4)
@@ -199,7 +203,7 @@ class Scene3(QWidget):
         self.hlayout.addWidget(pause_btn)
 
 
-        subj_timer.setObjectName("Subj_Time")
+        self.subj_timer.setObjectName("Subj_Time")
         self.line_box.setObjectName("Frame")
         self.line_box.setFixedHeight(50)
 
@@ -229,27 +233,16 @@ class Scene3(QWidget):
         self.Time_set = QDateTime()
         self.Timer_upd = QTimer()
 
-        self.Time = QLabel("00:00", self.line_box)
-        self.Time.setAlignment(Qt.AlignCenter)
+        self.visible = True
 
-
-        self.line_vbox.addWidget(self.Time)
-        self.Timer_upd.start(1000)
+        self.Timer_upd.start(800)
         self.Timer_upd.timeout.connect(self.update_time)
         
     def update_time(self):
-        self.change = QTimer(self)
-
-        self.change.start(1000)
-        self.change.timeout.connect(self.double_dot)
-
-        self.visible = True
-
-    def double_dot(self):
         if self.visible:
             current_date = QDateTime.currentDateTime().toString("dd.MM   HH:mm")
         else:
             current_date = QDateTime.currentDateTime().toString("dd.MM   HH mm")
             
-        self.Time.setText(current_date)
+        self.date_time.setText(current_date)
         self.visible = not self.visible
