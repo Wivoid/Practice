@@ -149,10 +149,15 @@ class Scene3(QWidget):
         super().__init__()
         self.setWindowTitle("Time Manager - Focus")
         self.initUI()
-        self.time()
-        
+        self.date()
 
     def initUI(self):
+        self.hour = Hours()
+        self.minute = Minutes()
+
+        self.set_h = self.hour.h_value.connect(lambda v: self.set_time(ho_value=v))
+        self.set_min = self.minute.min_value.connect(lambda v: self.set_time(mi_value=v))
+
         self.line_box = QWidget()
         self.line_vbox = QVBoxLayout(self.line_box)
 
@@ -229,16 +234,37 @@ class Scene3(QWidget):
     def timer_name(self, name):
         self.subj_name.setText(name)
 
-    def time(self):
+    def set_time(self, hours, minutes):
+        self.updating = QTimer()
+        self.total_sec = (hours * 3600) + (minutes * 60)
+
+        self.upd_timer(hours)
+
+        self.updating.start(1000)
+        self.updating.timeout.connect(lambda: self.upd_timer(hours))
+
+    def upd_timer(self, hours):
+        self.h, self.div = divmod(self.total_sec, 3600)
+        self.m, self.s = divmod(self.div, 60)
+
+        if self.total_sec >= 0:
+            if hours == 0:
+                self.subj_timer.setText(f"{self.m:02d}:{self.s:02d}")
+            else:
+                self.subj_timer.setText(f"{self.h:02d}:{self.m:02d}:{self.s:02d}")
+
+            self.total_sec -= 1
+
+    def date(self):
         self.Time_set = QDateTime()
         self.Timer_upd = QTimer()
 
         self.visible = True
 
         self.Timer_upd.start(800)
-        self.Timer_upd.timeout.connect(self.update_time)
+        self.Timer_upd.timeout.connect(self.update_date)
         
-    def update_time(self):
+    def update_date(self):
         if self.visible:
             current_date = QDateTime.currentDateTime().toString("dd.MM   HH:mm")
         else:

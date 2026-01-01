@@ -21,29 +21,35 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.stack)
 
         self.main_scene = Scene1()
-        self.focus_scene = Scene2()
-        self.time_scene = Scene3()
+        self.menu_scene = Scene2()
+        self.focus_scene = Scene3()
 
         self.stack.addWidget(self.main_scene)
+        self.stack.addWidget(self.menu_scene)
         self.stack.addWidget(self.focus_scene)
-        self.stack.addWidget(self.time_scene)
 
         
         self.stack.setCurrentIndex(0)
 
-        self.focus_scene.return_button.clicked.connect(self.Return)
-        self.main_scene.start_button.clicked.connect(self.Focus)
-        self.focus_scene.focus_button.clicked.connect(self.Time)
+        self.menu_scene.return_button.clicked.connect(self.Return)
+        self.main_scene.start_button.clicked.connect(self.Menu)
+        self.menu_scene.focus_button.clicked.connect(self.Focus)
 
         Val.value.connect(self.save_subj)
 
     def Return(self):
         self.stack.setCurrentIndex(0)
 
-    def Focus(self):
+    def Menu(self):
         self.stack.setCurrentIndex(1)
 
-    def Time(self):
+    def Focus(self):
+        hours = self.menu_scene.h_time.value()
+        minutes = self.menu_scene.min_time.value()
+
+
+        self.focus_scene.set_time(hours, minutes)
+
         if self.current_subj == '':
             QMessageBox.warning(self, 'Warning!', 'Please select subject')
         else:
