@@ -20,6 +20,52 @@ class Scene2(QWidget):
         
         self.vbox.insertLayout(1, self.middle_layout)
 
+    def initUI(self):
+
+        self.hbox = QHBoxLayout()
+        self.vbox = QVBoxLayout(self)
+
+        self.setLayout(self.vbox)
+
+        self.return_button = QPushButton("Return", self)
+        self.add_button = Add_Button()
+        self.h_time = Hours()
+        self.min_time = Minutes()
+        self.focus_button = QPushButton("Focus", self)
+
+
+        self.hbox.addWidget(self.return_button, stretch=3)
+        self.hbox.addWidget(self.add_button, stretch=3)
+
+        self.hbox.addSpacing(15)
+        self.hbox.addWidget(self.h_time, stretch=1)
+        self.hbox.addSpacing(5)
+        self.hbox.addWidget(self.min_time, stretch=1)
+        self.hbox.addSpacing(15)
+
+        self.hbox.addWidget(self.focus_button, stretch=3)
+
+        self.vbox.addLayout(self.hbox)
+
+
+        self.setStyleSheet("""
+            QPushButton {
+                    font-size: 40px;
+                        }
+            #TimerFrame {
+                border: 2px solid red;
+                border-radius: 3px;
+                    }
+            #RecentFrame {
+                border: 2px solid yellow;
+                border-radius: 3px;
+                        }
+            #StatsFrame {
+                border: 2px solid green;
+                border-radius: 3px;
+                        }
+        """)
+
     def Time_Box(self):
         self.time_box = QWidget()
         
@@ -77,52 +123,6 @@ class Scene2(QWidget):
 
         self.middle_layout.addWidget(self.stats_box)
 
-    def initUI(self):
-
-        self.hbox = QHBoxLayout()
-        self.vbox = QVBoxLayout(self)
-
-        self.setLayout(self.vbox)
-
-        self.return_button = QPushButton("Return", self)
-        self.add_button = Add_Button()
-        self.h_time = Hours()
-        self.min_time = Minutes()
-        self.focus_button = QPushButton("Focus", self)
-
-
-        self.hbox.addWidget(self.return_button, stretch=3)
-        self.hbox.addWidget(self.add_button, stretch=3)
-
-        self.hbox.addSpacing(15)
-        self.hbox.addWidget(self.h_time, stretch=1)
-        self.hbox.addSpacing(5)
-        self.hbox.addWidget(self.min_time, stretch=1)
-        self.hbox.addSpacing(15)
-
-        self.hbox.addWidget(self.focus_button, stretch=3)
-
-        self.vbox.addLayout(self.hbox)
-
-
-        self.setStyleSheet("""
-            QPushButton {
-                    font-size: 40px;
-                        }
-            #TimerFrame {
-                border: 2px solid red;
-                border-radius: 3px;
-                    }
-            #RecentFrame {
-                border: 2px solid yellow;
-                border-radius: 3px;
-                        }
-            #StatsFrame {
-                border: 2px solid green;
-                border-radius: 3px;
-                        }
-        """)
-
     def time(self):
         self.Time_set = QDateTime()
         self.Timer_upd = QTimer()
@@ -164,7 +164,7 @@ class Scene3(QWidget):
         self.vmain_layout = QVBoxLayout()
         self.hlayout = QHBoxLayout()
 
-        stop_btn = QPushButton("Stop")
+        end_btn = QPushButton("End Session")
         pause_btn = QPushButton("Pause")
 
         self.date_time = QLabel("12:00")
@@ -201,8 +201,8 @@ class Scene3(QWidget):
         self.vmain_layout.addStretch(2)
 
 
-        stop_btn.setMinimumHeight(120)
-        self.hlayout.addWidget(stop_btn)
+        end_btn.setMinimumHeight(120)
+        self.hlayout.addWidget(end_btn)
 
         pause_btn.setMinimumHeight(120)
         self.hlayout.addWidget(pause_btn)
@@ -230,6 +230,15 @@ class Scene3(QWidget):
                     font-size: 70px;
                 }
         """)
+
+        pause_btn.clicked.connect(self.pause_time)
+
+    def pause_time(self):
+        if hasattr(self, 'updating'):
+            if self.updating.isActive():
+                self.updating.stop()
+            else:
+                self.updating.start(1000)
 
     def timer_name(self, name):
         self.subj_name.setText(name)
