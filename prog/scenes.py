@@ -142,9 +142,12 @@ class Scene2(QWidget):
         self.visible = not self.visible
 
 from .files.subj_value import Val
+from .files.end_focus import Confirmation
 from PyQt5.QtCore import QTimer, QDateTime
 
 class Scene3(QWidget):
+    end_session = pyqtSignal(bool)
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Time Manager - Focus")
@@ -230,8 +233,23 @@ class Scene3(QWidget):
                     font-size: 70px;
                 }
         """)
-
+        end_btn.clicked.connect(self.end_window)
         pause_btn.clicked.connect(self.pause_time)
+
+    def end_window(self):
+        self.win = Confirmation()
+        self.win.show()
+
+        self.win.result.connect(self.ending)
+
+    def ending(self, result):
+        if result == True:
+            self.end_session.emit(True)
+
+            self.updating.stop()
+            self.total_sec = 0
+        else:
+            pass
 
     def pause_time(self):
         if hasattr(self, 'updating'):

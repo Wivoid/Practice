@@ -35,6 +35,7 @@ class MainWindow(QMainWindow):
         self.main_scene.start_button.clicked.connect(self.Menu)
         self.menu_scene.focus_button.clicked.connect(self.Focus)
 
+        self.focus_scene.end_session.connect(self.Ending)
         Val.value.connect(self.save_subj)
 
     def Return(self):
@@ -55,6 +56,9 @@ class MainWindow(QMainWindow):
         else:
             self.stack.setCurrentIndex(2)
         
+    def Ending(self):
+        self.stack.setCurrentIndex(1)
+
     def save_subj(self, name):
         self.current_subj = name
 
