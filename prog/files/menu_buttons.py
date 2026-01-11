@@ -36,6 +36,9 @@ class Add_Button(QPushButton):
 
         self.subj.triggered.connect(lambda: self.subject_funct(name))
 
+        self.setText(name)
+        Val.value.emit(name)
+
     def subject_funct(self, name):
         self.setText(name)
         Val.value.emit(name)
