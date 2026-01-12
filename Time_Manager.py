@@ -36,7 +36,11 @@ class MainWindow(QMainWindow):
         self.menu_scene.focus_button.clicked.connect(self.Focus)
 
         self.focus_scene.end_session.connect(self.Ending)
+<<<<<<< HEAD
         subject_val.value.connect(self.save_subj)
+=======
+        Val.value.connect(self.save_subj)
+>>>>>>> 239c24cdae9bf0c85577245a9ef7490d2896818b
 
     def Return(self):
         self.stack.setCurrentIndex(0)
