@@ -14,7 +14,6 @@ class Confirmation(QWidget):
         self.Style()
 
     def initUI(self):
-        print(21111)
         self.question = QLabel("Are you sure?")
         self.yes = QPushButton("Yes")
         self.no = QPushButton("No")

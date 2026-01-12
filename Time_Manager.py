@@ -45,16 +45,18 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentIndex(1)
 
     def Focus(self):
-        hours = self.menu_scene.h_time.value()
-        minutes = self.menu_scene.min_time.value()
+        self.hours = self.menu_scene.h_time.value()
+        self.minutes = self.menu_scene.min_time.value()
 
-
-        self.focus_scene.set_time(hours, minutes)
-
-        if self.current_subj == '':
-            QMessageBox.warning(self, 'Warning!', 'Please select subject')
+        if self.hours == 0 and self.minutes == 0:
+            QMessageBox.warning(self, 'Warning!', 'Please set the Time')
         else:
-            self.stack.setCurrentIndex(2)
+            if self.current_subj == '':
+                QMessageBox.warning(self, 'Warning!', 'Please select subject')
+            else:
+                self.stack.setCurrentIndex(2)
+            self.focus_scene.set_time(self.hours, self.minutes)
+            
         
     def Ending(self):
         self.stack.setCurrentIndex(1)
