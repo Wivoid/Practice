@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox, QStackedWid
 from prog.main_scene import Scene1
 from prog.scenes import Scene2
 from prog.scenes import Scene3
-from prog.files.subj_value import Val
+from prog.files.objects.signal_values import subject_val
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -35,7 +35,8 @@ class MainWindow(QMainWindow):
         self.main_scene.start_button.clicked.connect(self.Menu)
         self.menu_scene.focus_button.clicked.connect(self.Focus)
 
-        Val.value.connect(self.save_subj)
+        self.focus_scene.end_session.connect(self.Ending)
+        subject_val.value.connect(self.save_subj)
 
     def Return(self):
         self.stack.setCurrentIndex(0)
@@ -55,6 +56,9 @@ class MainWindow(QMainWindow):
         else:
             self.stack.setCurrentIndex(2)
         
+    def Ending(self):
+        self.stack.setCurrentIndex(1)
+
     def save_subj(self, name):
         self.current_subj = name
 

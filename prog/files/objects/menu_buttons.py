@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QPushButton,QLabel ,QHBoxLayout
                              ,QApplication , QVBoxLayout,
                                QMenu, QSizePolicy, QMessageBox)
-from .add_window import AddWindow
-from .subj_value import Val
+from ..windows.add_window import AddWindow
+from .signal_values import subject_val
 
 class Add_Button(QPushButton):
     def __init__(self):
@@ -37,9 +37,9 @@ class Add_Button(QPushButton):
         self.subj.triggered.connect(lambda: self.subject_funct(name))
 
         self.setText(name)
-        Val.value.emit(name)
+        subject_val.value.emit(name)
 
     def subject_funct(self, name):
         self.setText(name)
-        Val.value.emit(name)
+        subject_val.value.emit(name)
         

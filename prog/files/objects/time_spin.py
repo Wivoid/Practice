@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QSpinBox
 from PyQt5.QtCore import Qt, pyqtSignal
+from .signal_values import reset_val
 
 class Minutes(QSpinBox):
     min_value = pyqtSignal(int)
@@ -15,6 +16,8 @@ class Minutes(QSpinBox):
         self.setWrapping(True)
         self.valueChanged.connect(self.get_min)
 
+        reset_val.value.connect(self.reset_val)
+
         self.setStyleSheet("""
             QSpinBox{
                     min-height: 50px;
@@ -29,6 +32,9 @@ class Minutes(QSpinBox):
         
         self.setAlignment(Qt.AlignCenter)
         self.setSuffix(" m")
+
+    def reset_val(self):
+        self.setValue(0)
 
     def get_min(self):
         minutes_value = self.value()
@@ -50,6 +56,8 @@ class Hours(QSpinBox):
         self.valueChanged.connect(self.h_value.emit)
         self.valueChanged.connect(self.get_h)
 
+        reset_val.value.connect(self.reset_val)
+
         self.setStyleSheet("""
             
             QSpinBox{
@@ -64,6 +72,9 @@ class Hours(QSpinBox):
                            """)
         self.setAlignment(Qt.AlignCenter)
         self.setSuffix(" h")
+
+    def reset_val(self):
+        self.setValue(0)
 
     def get_h(self):
         hours_value = self.value()
