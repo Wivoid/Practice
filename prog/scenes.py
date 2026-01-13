@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QPushButton,
-                             QLabel, QHBoxLayout, QVBoxLayout, QSizePolicy, QDoubleSpinBox)
+                             QLabel, QHBoxLayout, QVBoxLayout)
 from .files.objects.menu_buttons import Add_Button
 from .files.objects.time_spin import Hours, Minutes
 
@@ -143,7 +143,9 @@ class Scene2(QWidget):
 
 from .files.objects.signal_values import subject_val, reset_val
 from .files.windows.end_focus import Confirmation
-from PyQt5.QtCore import QTimer, QDateTime
+from PyQt5.QtCore import QTimer, QDateTime, QUrl
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+import os
 
 class Scene3(QWidget):
     end_session = pyqtSignal(bool)
@@ -275,13 +277,29 @@ class Scene3(QWidget):
         self.h, self.div = divmod(self.total_sec, 3600)
         self.m, self.s = divmod(self.div, 60)
 
-        if self.total_sec >= 0:
+        if self.total_sec > 0:
             if hours == 0:
                 self.subj_timer.setText(f"{self.m:02d}:{self.s:02d}")
             else:
                 self.subj_timer.setText(f"{self.h:02d}:{self.m:02d}:{self.s:02d}")
-
             self.total_sec -= 1
+
+        elif self.total_sec == 0:
+            self.updating.stop()
+            self.subj_timer.setText(f"{self.m:02d}:{self.s:02d}")
+            self.focus_finish()
+            
+
+    def focus_finish(self):
+        self.content = QMediaContent
+        self.player = QMediaPlayer()
+
+        sound = os.path.join('prog/files/media/timeout.mp3')
+        self.sound_url = QUrl.fromLocalFile(sound)
+        self.sound_file = self.content(self.sound_url)
+        
+        self.player.setMedia(self.sound_file)
+        self.player.play()
 
     def date(self):
         self.Time_set = QDateTime()
