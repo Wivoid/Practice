@@ -297,6 +297,9 @@ class Scene3(QWidget):
         sound = os.path.join('prog/files/media/timeout.mp3')
         self.sound_url = QUrl.fromLocalFile(sound)
         self.sound_file = self.content(self.sound_url)
+
+        self.subj_timer.setText("Focus Ended")
+        self.subj_timer.setStyleSheet("color: green")
         
         self.player.setMedia(self.sound_file)
         self.player.play()
