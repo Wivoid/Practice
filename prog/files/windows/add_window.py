@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout,
-                             QLabel, QLineEdit, QPushButton)
+                             QLineEdit, QPushButton, QMessageBox)
 from PyQt5.QtCore import pyqtSignal, Qt
 import time
 
@@ -47,10 +47,13 @@ class AddWindow(QWidget):
         Return.clicked.connect(self.btn_return)
         
     def btn_submit(self):
-        subj_name = self.Input.text()
-        self.subj_send.emit(subj_name)
-        time.sleep(0.3)
-        self.close()
+        if self.Input.text() != '':
+            subj_name = self.Input.text()
+            self.subj_send.emit(subj_name)
+            time.sleep(0.3)
+            self.close()
+        else:
+            QMessageBox.warning(self, "Subject Name Warning", "Please enter your subject name")
 
     def btn_return(self):
         self.close()
