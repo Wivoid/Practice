@@ -5,6 +5,7 @@ class Scene1(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.setAttribute(Qt.WA_StyledBackground, True)
 
     def initUI(self):
 
@@ -33,10 +34,19 @@ class Scene1(QWidget):
 
 
         self.setStyleSheet("""
+            QWidget{
+                    background-color: #9dcefc;
+                    }
+
             QPushButton {
                     font-size: 40px;
+                    color: hsl(209, 20%, 28%);
+                    border: 1.5px dashed #4c6175;
+                    border-radius: 15px;
+
                         }
             QLabel {
+                    color: #56728c;
                     font-size: 50px;       
                     }
         """)
