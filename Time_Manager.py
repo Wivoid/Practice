@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Time Manager")
         self.setGeometry(800,500,800,500)
-        self.setMinimumSize(500,300)
+        self.setMinimumSize(800,400)
         self.initUI()
 
         self.current_subj = ""
