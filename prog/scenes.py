@@ -1,7 +1,8 @@
 import sys
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QPushButton,
-                             QLabel, QHBoxLayout, QVBoxLayout)
+                             QLabel, QHBoxLayout, QVBoxLayout, QGraphicsDropShadowEffect)
+from PyQt5.QtGui import QColor
 from .files.objects.menu_buttons import Add_Button
 from .files.objects.time_spin import Hours, Minutes
 
@@ -9,6 +10,9 @@ class Scene2(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.style()
+        
+        self.setAttribute(Qt.WA_StyledBackground, True) # program allowance to set the bg
 
         self.middle_layout = QHBoxLayout()
 
@@ -28,14 +32,14 @@ class Scene2(QWidget):
         self.setLayout(self.vbox)
 
         self.return_button = QPushButton("Return", self)
-        self.add_button = Add_Button()
+        self.subject_button = Add_Button()
         self.h_time = Hours()
         self.min_time = Minutes()
         self.focus_button = QPushButton("Focus", self)
 
 
         self.hbox.addWidget(self.return_button, stretch=3)
-        self.hbox.addWidget(self.add_button, stretch=3)
+        self.hbox.addWidget(self.subject_button, stretch=3)
 
         self.hbox.addSpacing(15)
         self.hbox.addWidget(self.h_time, stretch=1)
@@ -47,24 +51,68 @@ class Scene2(QWidget):
 
         self.vbox.addLayout(self.hbox)
 
+    def style(self):
+        self.apply_shadow(self.focus_button)
+        self.apply_shadow(self.subject_button)
+        self.apply_shadow(self.return_button)
+
+
+        self.setContentsMargins(20,20,20,10)
+
+        self.subject_button.setObjectName("Subject_Choice")
+        self.setObjectName("MainScene")
 
         self.setStyleSheet("""
-            QPushButton {
-                    font-size: 40px;
+             #MainScene {
+                    background-color: hsl(210, 89%, 92%);
                         }
+
+            QPushButton {
+                    padding: 5px;
+                    font-size: 45px;
+                    font-weight: bold;
+                    color: hsl(209, 56%, 70%);
+                    background-color: hsl(209, 87%, 86%);
+                    border: 4px outset hsl(209, 25%, 63%);
+                    border-radius: 20px;
+                    min-height: 60px;
+                        }
+                           
+            QPushButton#Subject_Choice {
+                padding-left:12px;
+
+                           
+                    }
+                        
             #TimerFrame {
                 border: 2px solid red;
                 border-radius: 3px;
                     }
+                           
             #RecentFrame {
                 border: 2px solid yellow;
                 border-radius: 3px;
                         }
+                           
             #StatsFrame {
                 border: 2px solid green;
                 border-radius: 3px;
                         }
         """)
+
+    def apply_shadow(self, widget):
+        shadow = QGraphicsDropShadowEffect()
+        #if widget == self.hello_text:
+        #    color = (QColor(0,0,100,50))
+        #    shadow.setBlurRadius(30)
+        #else:
+        color = (QColor(0,0,100,110))
+        shadow.setBlurRadius(50)
+        shadow.setXOffset(5)
+        shadow.setYOffset(5)
+
+        shadow.setColor(color)
+        widget.setGraphicsEffect(shadow)
 
     def Time_Box(self):
         self.time_box = QWidget()
