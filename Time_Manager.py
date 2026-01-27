@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QMessageBox, QStackedWidget)
 from prog.main_scene import Scene1
+from prog.info import Info
 from prog.scenes import Scene2
 from prog.scenes import Scene3
 from prog.files.objects.signal_values import subject_val
@@ -21,10 +22,13 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.stack)
 
         self.main_scene = Scene1()
+        self.info_scene = Info()
+
         self.menu_scene = Scene2()
         self.focus_scene = Scene3()
 
         self.stack.addWidget(self.main_scene)
+        self.stack.addWidget(self.info_scene)
         self.stack.addWidget(self.menu_scene)
         self.stack.addWidget(self.focus_scene)
 
@@ -33,16 +37,20 @@ class MainWindow(QMainWindow):
 
         self.menu_scene.return_button.clicked.connect(self.Return)
         self.main_scene.start_button.clicked.connect(self.Menu)
+        self.main_scene.info_button.clicked.connect(self.Info)
         self.menu_scene.focus_button.clicked.connect(self.Focus)
 
         self.focus_scene.end_session.connect(self.Ending)
         subject_val.value.connect(self.save_subj)
 
+    def Menu(self):
+        self.stack.setCurrentIndex(2)
+
+    def Info(self):
+        self.stack.setCurrentIndex(1)
+
     def Return(self):
         self.stack.setCurrentIndex(0)
-
-    def Menu(self):
-        self.stack.setCurrentIndex(1)
 
     def Focus(self):
         self.hours = self.menu_scene.h_time.value()
@@ -54,12 +62,12 @@ class MainWindow(QMainWindow):
             if self.current_subj == '':
                 QMessageBox.warning(self, 'Warning!', 'Please select subject')
             else:
-                self.stack.setCurrentIndex(2)
+                self.stack.setCurrentIndex(3)
             self.focus_scene.set_time(self.hours, self.minutes)
             
         
     def Ending(self):
-        self.stack.setCurrentIndex(1)
+        self.stack.setCurrentIndex(0)
 
     def save_subj(self, name):
         self.current_subj = name
