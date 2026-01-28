@@ -39,6 +39,7 @@ class Scene2(QWidget):
 
 
         self.hbox.addWidget(self.return_button, stretch=3)
+        self.hbox.addSpacing(10)
         self.hbox.addWidget(self.subject_button, stretch=3)
 
         self.hbox.addSpacing(15)
@@ -80,9 +81,12 @@ class Scene2(QWidget):
                            
             QPushButton#Subject_Choice {
                 padding-left:12px;
-
-                           
                     }
+                           
+            QPushButton:hover {
+                    color: hsl(209, 45%, 60%);
+                    background-color: hsl(209, 70%, 83%);
+                        }
                         
             #TimerFrame {
                 border: 2px solid red;
