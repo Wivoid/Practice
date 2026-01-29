@@ -32,7 +32,9 @@
 ```text
 ├── Time_Manager.py      # Main Application file
 ├── scenes.py            # Core program layouts
-├── add_window.py        # Task creation interface
+├── main_scene.py        # Starting window
+├── info.py              # Information page
 └── files/
     ├── media/           # Media assets 
-    └── objects/         # UI components 
+    ├── objects/         # UI components
+    └── windows/         # Application's independent windows
