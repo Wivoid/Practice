@@ -106,10 +106,6 @@ class Scene2(QWidget):
 
     def apply_shadow(self, widget):
         shadow = QGraphicsDropShadowEffect()
-        #if widget == self.hello_text:
-        #    color = (QColor(0,0,100,50))
-        #    shadow.setBlurRadius(30)
-        #else:
         color = (QColor(0,0,100,110))
         shadow.setBlurRadius(50)
         shadow.setXOffset(5)
