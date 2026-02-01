@@ -18,7 +18,6 @@ class Info(QWidget):
         self.setLayout(self.main_layout)
         self.main_layout.addWidget(self.scroll_area)
 
-        self.scroll_area.viewport().setContentsMargins(0,0,0,0)
         self.scroll_area.setFrameShape(QScrollArea.NoFrame)
         self.scroll_area.setWidgetResizable(True)
         self.scroll_area.setWidget(self.contentbox)
@@ -28,6 +27,7 @@ class Info(QWidget):
         self.hbox = QHBoxLayout()
 
         self.vbox.addLayout(self.hbox)
+        self.vbox.setContentsMargins(20,30,20,40)
         self.contentbox.setLayout(self.vbox)
         
 
@@ -67,10 +67,8 @@ class Info(QWidget):
         self.vbox.addStretch(4)
 
 
-
     def style(self):
         self.setAttribute(Qt.WA_StyledBackground, True)
-        self.setContentsMargins(20,30,20,40)
 
         self.info.setObjectName("Info")
         self.title.setObjectName("Title")
@@ -86,6 +84,16 @@ class Info(QWidget):
 
             QLabel {
                 font-size: 20px;
+            }
+                           
+            QScrollBar::vertical{
+                min-width: 22px;
+                margin: 0px;
+            }
+
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical{
+                height: 0px;
+                width: 0px;
             }
 
             #Title {
