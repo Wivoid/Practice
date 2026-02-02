@@ -35,12 +35,15 @@ class MainWindow(QMainWindow):
         
         self.stack.setCurrentIndex(0)
 
-        self.menu_scene.return_button.clicked.connect(self.Return)
+
         self.main_scene.start_button.clicked.connect(self.Menu)
         self.main_scene.info_button.clicked.connect(self.Info)
+        self.info_scene.return_btn.clicked.connect(self.Info_Return)
+
+        self.menu_scene.return_button.clicked.connect(self.Return_Main)
         self.menu_scene.focus_button.clicked.connect(self.Focus)
 
-        self.focus_scene.end_session.connect(self.Ending)
+        self.focus_scene.end_session.connect(self.End_focus)
         subject_val.value.connect(self.save_subj)
 
     def Menu(self):
@@ -49,7 +52,10 @@ class MainWindow(QMainWindow):
     def Info(self):
         self.stack.setCurrentIndex(1)
 
-    def Return(self):
+    def Info_Return(self):
+        self.stack.setCurrentIndex(0)
+
+    def Return_Main(self):
         self.stack.setCurrentIndex(0)
 
     def Focus(self):
@@ -66,7 +72,7 @@ class MainWindow(QMainWindow):
             self.focus_scene.set_time(self.hours, self.minutes)
             
         
-    def Ending(self):
+    def End_focus(self):
         self.stack.setCurrentIndex(0)
 
     def save_subj(self, name):
