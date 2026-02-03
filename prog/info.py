@@ -49,6 +49,7 @@ class Info(QWidget):
         self.information1 = QLabel()
         self.question2 = QLabel("What can it do?")
         self.information2 = QLabel()
+        self.question3 = QLabel("How to use it?")
 
         self.information1.setText("""<p style="line-height:130%;"> 
                                   The program is designed to be your own bridge which will follow your passion <br>
@@ -58,13 +59,18 @@ class Info(QWidget):
                                 while trying to build something big enough to be interesting
                                   </p>""")
 
-        self.information2.setText("Time Manager has something to serve for you, such as:"
-                                "\n • Settable focus time"
-                                "\n • Changable task's name"
-                                "\n • Sound reminder after finishing focus time"
-                                "\n • Relaxing design"
-                                "\n And much more soon"
-                                  )
+        self.information2.setText("""
+                                  <p style="line-height:140%; font-size: 24px;">
+                                  Time Manager has something to serve for you, such as: 
+                                  </p>
+
+                                 <p style="line-height:120%;">
+                                 • Settable focus time <br>
+                                 • Changable task's name <br>
+                                 • Sound reminder after finishing focus time <br>
+                                 • Relaxing design <br>
+                                 And much more soon
+                                  </p>""")
 
 
         self.hbox.addStretch(36)
@@ -73,9 +79,10 @@ class Info(QWidget):
         self.hbox.addStretch(34)
         self.vbox.addSpacing(20)
         self.vbox.addWidget(self.info, alignment=Qt.AlignCenter)
+        self.vbox.addSpacing(10)
         self.vbox.addWidget(self.question1, alignment=Qt.AlignCenter)
         self.vbox.addWidget(self.information1, alignment=Qt.AlignCenter)
-        self.vbox.addSpacing(20)
+        self.vbox.addSpacing(30)
         self.vbox.addWidget(self.question2, alignment=Qt.AlignCenter)
         self.vbox.addWidget(self.information2, alignment=Qt.AlignCenter)
         self.vbox.addStretch(4)
@@ -120,13 +127,28 @@ class Info(QWidget):
                     color: hsl(209, 45%, 60%);
                     background-color: hsl(209, 70%, 83%);
             }
-
-            QScrollBar::vertical{
-                min-width: 22px;
-                margin: 0px;
+                           
+            QScrollBar::vertical {
+                background-color: hsl(210, 85%, 89%);
+                border-radius: 8px;
+                margin-bottom: 5px;
             }
 
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical{
+            QScrollBar::handle:vertical{
+                min-width: 22px;
+                margin: 0px;
+                border-radius: 8px;
+                background: hsl(209, 87%, 84%);
+                padding-bottom: 5px;
+            }
+
+            QScrollBar::handle:vertical::hover{
+                background: hsl(209, 80%, 78%)
+            }
+
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical, 
+            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical{
+                background: none;
                 height: 0px;
                 width: 0px;
             }
