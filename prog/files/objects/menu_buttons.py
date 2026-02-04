@@ -11,19 +11,21 @@ class Add_Button(QPushButton):
         super().__init__()
         self.setText("Subject")
 
-        self.menu = QMenu()
-        self.menu.setStyleSheet("font-size: 20px;")
-        self.menu.aboutToShow.connect(self.update_button)
+        self.Menu = QMenu()
+        self.Menu.setAttribute(Qt.WA_TranslucentBackground)
+        self.Menu.setWindowFlags(self.Menu.windowFlags() | Qt.FramelessWindowHint | Qt.NoDropShadowWindowHint)
+        self.Menu.aboutToShow.connect(self.update_button)
 
         self.add_subject()
+        self.style()
 
     def add_subject(self):
-        self.menu_create = self.menu.addAction("Create")
+        self.menu_create = self.Menu.addAction("Create")
         self.menu_create.triggered.connect(self.add_funct)
-        self.setMenu(self.menu)
+        self.setMenu(self.Menu)
 
     def update_button(self):
-        self.menu.setMinimumWidth(self.width())
+        self.Menu.setMinimumWidth(self.width())
         
     def add_funct(self):
         self.new_window = AddWindow()
@@ -32,7 +34,7 @@ class Add_Button(QPushButton):
         self.new_window.subj_send.connect(self.create_subj)
 
     def create_subj(self, name):
-        self.subj = self.menu.addAction(name)
+        self.subj = self.Menu.addAction(name)
 
         self.subj.triggered.connect(lambda: self.subject_funct(name))
 
@@ -43,3 +45,24 @@ class Add_Button(QPushButton):
         self.setText(name)
         subject_val.value.emit(name)
         
+    def style(self):
+        self.Menu.setStyleSheet("""
+            QMenu{
+                background-color: hsl(210, 89%, 92%);
+                border: 3px solid hsl(210, 89%, 80%);
+                font-size: 20px;
+                font-weight: bold;
+                border-radius: 10px;
+                color: hsl(209, 56%, 70%);
+            }
+                                
+            QMenu::item{
+                background: transparent;
+            }
+                                
+            QMenu::item:selected {
+                background-color: hsl(210, 89%, 85%);
+                color: hsl(209, 56%, 55%);
+            }
+        """)
+
