@@ -193,7 +193,7 @@ from .files.objects.signal_values import subject_val, reset_val
 from .files.windows.end_focus import Confirmation
 from PyQt5.QtCore import QTimer, QDateTime, QUrl
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-import os
+import os, sqlite3
 
 class Scene3(QWidget):
     end_session = pyqtSignal(bool)
@@ -203,6 +203,7 @@ class Scene3(QWidget):
         self.setWindowTitle("Time Manager - Focus")
         self.initUI()
         self.date()
+        self.data()
         self.style()
 
     def initUI(self):
@@ -314,7 +315,22 @@ class Scene3(QWidget):
             self.updating.stop()
             self.subj_timer.setText(f"{self.m:02d}:{self.s:02d}")
             self.focus_finish()
-            
+
+
+    def data(self):
+        self.connection = sqlite3.connect('time_manager.db')
+        self.Cursor = self.connection.cursor()
+
+        self.Cursor.execute("""
+            CREATE TABLE IF NOT EXISTS tasks(
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                subject TEXT UNIQUE NOT NULL,
+                time INTEGER,
+                date TEXT)
+        """)
+
+        #self.Cursor.execute("INSERT INTO tasks VALUES (?,?,NULL,?)", )
+
 
     def focus_finish(self):
         self.content = QMediaContent
