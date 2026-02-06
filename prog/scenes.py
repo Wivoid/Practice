@@ -203,6 +203,7 @@ class Scene3(QWidget):
         self.setWindowTitle("Time Manager - Focus")
         self.initUI()
         self.date()
+        self.style()
 
     def initUI(self):
         self.hour = Hours()
@@ -250,39 +251,16 @@ class Scene3(QWidget):
         self.vmain_layout.addStretch(2)
 
         self.vmain_layout.addLayout(self.hlayout)
-
         self.vmain_layout.addStretch(2)
 
 
-        end_btn.setMinimumHeight(120)
+        self.hlayout.addStretch(7)
         self.hlayout.addWidget(end_btn)
-
-        pause_btn.setMinimumHeight(120)
+        self.hlayout.addStretch(1)
         self.hlayout.addWidget(pause_btn)
+        self.hlayout.addStretch(7)
 
-
-        self.subj_timer.setObjectName("Subj_Time")
-        self.line_box.setObjectName("Frame")
         self.line_box.setFixedHeight(50)
-
-        self.setStyleSheet("""
-                #Frame {
-                    border: 2px solid red;
-                }
-                           
-                QLabel {
-                    font: 30px;
-                }
-                           
-                QPushButton {
-                    font-size: 35px;
-                    margin: 30px;
-                }
-                           
-                #Subj_Time {
-                    font-size: 70px;
-                }
-        """)
         end_btn.clicked.connect(self.end_window)
         pause_btn.clicked.connect(self.pause_time)
 
@@ -369,3 +347,47 @@ class Scene3(QWidget):
             
         self.date_time.setText(current_date)
         self.visible = not self.visible
+
+
+    def style(self):
+        self.subj_timer.setObjectName("Subj_Time")
+        self.line_box.setObjectName("Frame")
+
+        self.setStyleSheet("""
+            #Frame {
+                border: 2px solid red;
+            }
+                           
+            #Subj_Time {
+                font-size: 70px;
+            }
+
+            QWidget{
+                background-color: hsl(210, 89%, 92%);
+            }
+
+            QPushButton {
+                    font-size: 35px;
+                    font-weight: bold;
+                    padding: 15px;
+                    min-width: 300px;
+                    max-height: 70px;
+                    padding-left: 25px;
+                    padding-right: 25px;
+                    color: hsl(209, 56%, 70%);
+                    background-color: hsl(209, 87%, 86%);
+                    border: 4px outset hsl(209, 25%, 63%);
+                    border-radius: 15px;
+            }
+                           
+            QPushButton:hover {
+                    color: hsl(209, 45%, 60%);
+                    background-color: hsl(209, 70%, 83%);
+            }
+                           
+            QLabel {
+                    border-radius: 20px;
+                    color: #56728c;
+                    font: 30px;
+            }
+            """)

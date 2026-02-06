@@ -34,7 +34,7 @@ class Minutes(QSpinBox):
                     background-color: hsl(209, 87%, 86%);
                     color: hsl(209, 87%, 68%);
                     border-radius: 10px;
-                    border: 2px solid hsl(209, 48%, 77%);
+                    border: 2px inset hsl(209, 48%, 77%);
                 }
                            
             QSpinBox::up-button, QSpinBox::down-button {
@@ -81,7 +81,7 @@ class Hours(QSpinBox):
                     color: hsl(209, 87%, 68%);
                     background-color: hsl(209, 87%, 86%);
                     border-radius: 10px;
-                    border: 2px solid hsl(209, 48%, 79%);
+                    border: 2px inset hsl(209, 48%, 79%);
                 }
                            
             QSpinBox::up-button, QSpinBox::down-button {

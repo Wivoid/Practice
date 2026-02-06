@@ -14,6 +14,7 @@ class MainWindow(QMainWindow):
         self.setGeometry(800,500,800,500)
         self.setMinimumSize(850,400)
         self.initUI()
+        self.style()
 
         self.current_subj = ""
 
@@ -63,10 +64,10 @@ class MainWindow(QMainWindow):
         self.minutes = self.menu_scene.min_time.value()
 
         if self.hours == 0 and self.minutes == 0:
-            QMessageBox.warning(self, 'Warning!', 'Please set the Time')
+            self.Subject_warn = QMessageBox.warning(self, 'Warning!', 'Please set the Time')
         else:
             if self.current_subj == '':
-                QMessageBox.warning(self, 'Warning!', 'Please select subject')
+                self.Time_warn = QMessageBox.warning(self, 'Warning!', 'Please select subject')
             else:
                 self.stack.setCurrentIndex(3)
             self.focus_scene.set_time(self.hours, self.minutes)
@@ -78,8 +79,37 @@ class MainWindow(QMainWindow):
     def save_subj(self, name):
         self.current_subj = name
 
+
+    def style(self):
+        self.setStyleSheet("""
+            QMessageBox QPushButton {
+                font-size: 25px;
+                font-weight: bold;
+                color: hsl(209, 56%, 70%);
+                background-color: hsl(209, 87%, 86%);
+                border: 3px outset hsl(209, 25%, 60%);
+                border-radius: 14px;
+                padding: 3px;
+            }
+                           
+            QMessageBox QLabel{
+                font-size: 20px;
+                font-weight: bold;
+                color: hsl(209, 51%, 52%);
+            }
+
+            QMessageBox QPushButton::hover {
+                color: hsl(209, 56%, 70%);
+                background-color: hsl(209, 87%, 89%);
+            }
+
+            QWidget{
+                background: hsl(210, 89%, 92%);
+            }
+        """)
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    sys.exit(app.exec_()) 
+    sys.exit(app.exec_())
